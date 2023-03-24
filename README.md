@@ -17,3 +17,5 @@ Here, I've done the next best thing and looked at the number of people and jobs 
 * 5: UT/Yellow Jacket
 
 The analysis shows that scenarios 1 and 2 by far outperform the others in terms of population and jobs located close to light rail. Scenario 4 has decent population coverage, owing to its extension to Yellow Jacket, but it doesn't capture nearly as many jobs as scenarios 1 and 2. 
+
+![results](scenarioAnalysis.png)
