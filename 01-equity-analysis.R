@@ -183,6 +183,9 @@ station_performance <-
   mutate(variable2 = forcats::fct_reorder(variable2, total, .desc = TRUE),
          wrapping = ifelse(variable2 %in% c("total jobs", "low-wage jobs"), "jobs", "population"))
 
+# Three stations have no jobs and ABIA's walkshed only intersects a small share
+# We should add those back, assume they are accessible.
+
 alt_performance_wide <- 
   st_intersection(travis_demogs, alts) %>%
   mutate(new_area = units::drop_units(st_area(.)),
