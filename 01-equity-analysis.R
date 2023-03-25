@@ -165,6 +165,24 @@ alts <-
 
 ### Conduct areal interpolation and performance analysis -----------------------
 
+station_performance <- 
+  st_intersection(travis_demogs, lrt_sa) %>%
+  mutate(new_area = units::drop_units(st_area(.)),
+         estimate_share = new_area / orig_area * estimate,
+         variable2 = 
+           forcats::fct_collapse(
+             variable,
+             BIPOC = c("B03002_004", "B03002_006", "B03002_007", "B03002_008", 
+                       "B03002_009", "B03002_012"),
+             poverty = c("C17002_002", "C17002_003"),
+             `total population` = "B01001_001",
+             `total jobs` = "C000",
+             `low-wage jobs` = "CE01")) %>%
+  group_by(Name, variable2) %>%
+  summarize(total = sum(estimate_share)) %>%
+  mutate(variable2 = forcats::fct_reorder(variable2, total, .desc = TRUE),
+         wrapping = ifelse(variable2 %in% c("total jobs", "low-wage jobs"), "jobs", "population"))
+
 alt_performance_wide <- 
   st_intersection(travis_demogs, alts) %>%
   mutate(new_area = units::drop_units(st_area(.)),
@@ -197,6 +215,26 @@ alt_performance_final <-
   summarize(total = sum(total)) %>%
   mutate(variable2 = forcats::fct_reorder(variable2, total, .desc = TRUE),
          wrapping = ifelse(variable2 %in% c("total jobs", "low-wage jobs"), "jobs", "population"))
+
+## Station area performance ----------------------------------------------------
+station_performance$Name <-
+  factor(station_performance$Name, levels = levels(forcats::fct_reorder(filter(station_performance, variable2 == "total jobs")$Name, 
+                       filter(station_performance, variable2 == "total jobs")$total, 
+                       .desc = TRUE)))
+
+ggplot(filter(station_performance,
+              variable2 %in% c("total population", "total jobs"))) + 
+  geom_point(aes(y = forcats::fct_rev(Name), x = total)) +
+  geom_segment(aes(y = forcats::fct_rev(Name), yend = forcats::fct_rev(Name), 
+                   x = 0, xend = total)) +
+  facet_wrap(~wrapping, scales = "free_x") + 
+  ylab(NULL) + 
+  xlab("count") + 
+  theme_bw()
+           
+
+
+## Alternatives performance ----------------------------------------------------
 
 ggplot(filter(alt_performance_final,
               variable2 %in% c("BIPOC", "poverty", "total population", "total jobs", "low-wage jobs"))) + 
