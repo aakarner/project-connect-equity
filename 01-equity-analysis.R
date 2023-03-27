@@ -67,28 +67,31 @@ travis_demogs <- left_join(travis_bgs, rbind(travis_acs, jobs))
 #            "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", "Soco",
 #            "Oltorf", "St. Edward's")
 
-alt1a <- c("38th", "29th", "UT", "15th", "Republic Square",
-           "Auditorium Shores", "Travis Heights", "Lakeshore",
-           "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", "Soco",
-           "Oltorf")
+alt1a <- c("38th", "29th", "UT", "15th", 
+           "Republic Square", "Auditorium Shores", 
+           "Travis Heights", "Lakeshore",
+           "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", 
+           "Soco", "Oltorf")
 
-# stopifnot(length(alt1a) == 16)
+# stopifnot(length(alt1a) == 14)
 
-# alt1b <- c("45th", "38th", "29th", "UT", "15th", "Republic Square", 
+# alt1b <- c("45th", "38th", "29th", "UT", "15th",  
 #            "Congress", "Cesar Chavez", "Waterfront", "Travis Heights", 
 #            "Lakeshore", "Pleasant Valley", "Faro", "Montopolis", 
 #            "Yellow Jacket", "Soco", "Oltorf", "St. Edward's")
 
-alt1b <- c("38th", "29th", "UT", "15th", "Republic Square", 
-           "Congress", "Cesar Chavez", "Waterfront", "Travis Heights", 
-           "Lakeshore", "Pleasant Valley", "Faro", "Montopolis", 
-           "Yellow Jacket", "Soco", "Oltorf")
+alt1b <- c("38th", "29th", "UT", "15th", 
+           "Congress", "Cesar Chavez", "Waterfront", 
+           "Travis Heights", "Lakeshore", 
+           "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", 
+           "Soco", "Oltorf")
 
-# stopifnot(length(alt1b) == 18)
+# stopifnot(length(alt1b) == 15)
 
 ## Alternative 2: On-street: North Lamar to Pleasant Valley
 alt2a <- c("North Lamar Transit Center", "Crestview", "Koenig", "45th", "38th",
-          "29th", "UT", "15th", "Republic Square", "Auditorium Shores", 
+          "29th", "UT", "15th", 
+          "Republic Square", "Auditorium Shores", 
           "Travis Heights", "Lakeshore", "Pleasant Valley")
 
 # stopifnot(length(alt2a) == 13)
@@ -270,7 +273,7 @@ ggplot(filter(alt_performance_final,
   ylab("count") + 
   guides(fill = guide_legend(title = NULL)) + 
   labs(title = "Population and jobs within 1/2 mile of proposed light-rail stations by scenario",
-       subtitle = "REVISED 3/26/2023",
+       subtitle = "REVISED 3/27/2023",
        caption = "Source: Alex Karner, UT-Austin Community & Regional Planning") +
   theme_bw() + 
   theme(plot.subtitle = element_text(color = "red"))
