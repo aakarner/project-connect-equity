@@ -21,3 +21,6 @@ I build the included GeoJSON manually, using published maps. I generated half-mi
 The analysis shows that scenarios 1 and 2 by far outperform the others in terms of population and jobs located close to light rail. Scenario 4 has decent population coverage, owing to its extension to Yellow Jacket, but it doesn't capture nearly as many jobs as scenarios 1 and 2. 
 
 ![results](scenarioAnalysis.png)
+
+# To do
+* Evaluate commute patterns to ABIA. Where are employees coming from? 
