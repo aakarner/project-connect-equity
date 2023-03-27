@@ -174,7 +174,7 @@ alt_performance_wide <-
   summarize(total = sum(estimate_share)) %>%
   pivot_wider(names_from = "alt", values_from = "total")
 
-write.csv(alt_performance_wide, "output/alt_performance_wide.csv")
+# write.csv(alt_performance_wide, "output/alt_performance_wide.csv")
 
 alt_performance_long <- 
   st_intersection(travis_demogs, alts) %>%
@@ -202,19 +202,59 @@ alt_performance_final <-
 
 ## Station area performance ----------------------------------------------------
 station_performance$Name <-
-  factor(station_performance$Name, levels = levels(forcats::fct_reorder(filter(station_performance, variable2 == "total jobs")$Name, 
-                       filter(station_performance, variable2 == "total jobs")$total, 
-                       .desc = TRUE)))
+  factor(station_performance$Name, 
+         levels = 
+           levels(forcats::fct_reorder(
+             filter(station_performance, variable2 == "total jobs")$Name, 
+             filter(station_performance, variable2 == "total jobs")$total, 
+             .desc = TRUE)))
 
-ggplot(filter(station_performance,
-              variable2 %in% c("total population", "total jobs"))) + 
-  geom_segment(aes(y = forcats::fct_rev(Name), yend = forcats::fct_rev(Name), 
+p_jobs <- 
+  ggplot(
+    filter(station_performance, 
+           variable2 %in% c("total jobs"))) + 
+    geom_segment(aes(y = forcats::fct_rev(Name), yend = forcats::fct_rev(Name), 
                    x = 0, xend = total)) +
-  geom_point(aes(y = forcats::fct_rev(Name), x = total), color = "orange", size = 3) +
-  facet_wrap(~wrapping, scales = "free_x") + 
-  ylab(NULL) + 
-  xlab("count") + 
-  theme_bw()
+    geom_point(aes(y = forcats::fct_rev(Name), x = total), color = "orange", size = 3) +
+    # facet_wrap(~wrapping, scales = "free_x") + 
+    ylab(NULL) + 
+    xlab("count") + 
+    labs(title = "Jobs within 1/2 mile walk of proposed Project Connect light-rail stations",
+     subtitle = "3/27/2023",
+     caption = "Source: Alex Karner, UT-Austin Community & Regional Planning") +
+    theme_bw()
+
+ggsave(filename = "stationPerformance_jobs.png", plot = p_jobs,
+        width = 2700, height = 1800, units = "px")
+
+
+
+station_performance$Name <-
+  factor(station_performance$Name, 
+         levels = 
+           levels(forcats::fct_reorder(
+             filter(station_performance, variable2 == "total population")$Name, 
+             filter(station_performance, variable2 == "total population")$total, 
+             .desc = TRUE)))
+
+
+p_pop <- 
+  ggplot(
+    filter(station_performance, 
+           variable2 %in% c("total population"))) + 
+    geom_segment(aes(y = forcats::fct_rev(Name), yend = forcats::fct_rev(Name), 
+                   x = 0, xend = total)) +
+    geom_point(aes(y = forcats::fct_rev(Name), x = total), color = "blue", size = 3) +
+    # facet_wrap(~wrapping, scales = "free_x") + 
+    ylab(NULL) + 
+    xlab("count") + 
+    labs(title = "People within 1/2 mile walk of proposed light-rail stations",
+       subtitle = "3/27/2023",
+       caption = "Source: Alex Karner, UT-Austin Community & Regional Planning") +
+    theme_bw()
+
+ggsave(filename = "stationPerformance_pop.png", plot = p_pop,
+        width = 2700, height = 1800, units = "px")
            
 
 
