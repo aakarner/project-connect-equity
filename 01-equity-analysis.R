@@ -234,3 +234,5 @@ ggplot(filter(alt_performance_final,
        caption = "Source: Alex Karner, UT-Austin Community & Regional Planning") +
   theme_bw() + 
   theme(plot.subtitle = element_text(color = "red"))
+
+ggsave("scenarioAnalysis.png", width = 2700, height = 1800, units = "px")
