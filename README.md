@@ -18,9 +18,13 @@ Here, I've done the next best thing and looked at the number of people and jobs 
 
 I build the included GeoJSON manually, using published maps. I generated half-mile service areas using ArcGIS Pro. The demographic analysis was conducted in R and relied heavily on [Kyle Walker's packages](https://walker-data.com/) and [the tidyverse](https://www.tidyverse.org/). 
 
-The analysis shows that scenarios 1 and 2 outperform the others in terms of population and jobs located close to light rail. Scenario 4 has decent population coverage, owing to its extension to Yellow Jacket, but it doesn't capture as many jobs as scenarios 1 and 2. 
+The analysis shows that scenarios 1 and 2 by far outperform the others in terms of population and jobs located close to light rail. Scenario 4 has decent population coverage, owing to its extension to Yellow Jacket, but it doesn't capture nearly as many jobs as scenarios 1 and 2. 
 
-![results](scenarioAnalysis.png)
+![results1](scenarioAnalysis.png)
+
+![results2](stationPerformance_jobs.png)
+
+![results3](stationPerformance_pop.png)
 
 # To do
 * Evaluate commute patterns to ABIA. Where are employees coming from? 
