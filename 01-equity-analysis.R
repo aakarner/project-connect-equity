@@ -67,6 +67,14 @@ travis_demogs <- left_join(travis_bgs, rbind(travis_acs, jobs))
 #            "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", "Soco",
 #            "Oltorf", "St. Edward's")
 
+alt1 <- c("38th", "29th", "UT", "15th", 
+          "Travis Heights", "Lakeshore",
+          "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", 
+          "Soco", "Oltorf")
+
+dt1 <- c("Republic Square", "Auditorium Shores")
+dt2 <- c("Congress", "Cesar Chavez", "Waterfront")
+
 alt1a <- c("38th", "29th", "UT", "15th", 
            "Republic Square", "Auditorium Shores", 
            "Travis Heights", "Lakeshore",
@@ -127,7 +135,8 @@ alt5 <- c("UT", "15th", "Republic Square", "Auditorium Shores",
 # stopifnot(length(alt5) == 10)
 
 alts <- 
-  rbind(mutate(filter(lrt_sa, Name %in% alt1a), alt = "1a: 38th/Oltorf/Yellow Jacket 1"),
+  rbind(mutate(filter(lrt_sa, Name %in% alt1), alt = "1: Base"),
+        mutate(filter(lrt_sa, Name %in% alt1a), alt = "1a: 38th/Oltorf/Yellow Jacket 1"),
         mutate(filter(lrt_sa, Name %in% alt1b), alt = "1b: 38th/Oltorf/Yellow Jacket 2"),
         mutate(filter(lrt_sa, Name %in% alt2a), alt = "2a: N. Lamar/Pleasant Valley 1"),
         mutate(filter(lrt_sa, Name %in% alt2b), alt = "2b: N. Lamar/Pleasant Valley 2"),
@@ -262,6 +271,14 @@ ggsave(filename = "stationPerformance_pop.png", plot = p_pop,
 
 
 ## Alternatives performance ----------------------------------------------------
+
+# Add ABIA's jobs back manually
+# filter(station_performance, Name == "ABIA") # 77.6 jobs at base
+# 92697.13 - 77.6 + 2570
+# filter(alt_performance_final, alt == "3. 29th/ABIA")
+
+alt_performance_final$total[alt_performance_final$variable2 == "total jobs" & alt_performance_final$alt == "3. 29th/ABIA"] <- 95189.53
+
 
 ggplot(filter(alt_performance_final,
               variable2 %in% c("BIPOC", "poverty", "total population", "total jobs", "low-wage jobs"))) + 
