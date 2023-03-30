@@ -67,14 +67,6 @@ travis_demogs <- left_join(travis_bgs, rbind(travis_acs, jobs))
 #            "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", "Soco",
 #            "Oltorf", "St. Edward's")
 
-alt1 <- c("38th", "29th", "UT", "15th", 
-          "Travis Heights", "Lakeshore",
-          "Pleasant Valley", "Faro", "Montopolis", "Yellow Jacket", 
-          "Soco", "Oltorf")
-
-dt1 <- c("Republic Square", "Auditorium Shores")
-dt2 <- c("Congress", "Cesar Chavez", "Waterfront")
-
 alt1a <- c("38th", "29th", "UT", "15th", 
            "Republic Square", "Auditorium Shores", 
            "Travis Heights", "Lakeshore",
@@ -95,6 +87,10 @@ alt1b <- c("38th", "29th", "UT", "15th",
            "Soco", "Oltorf")
 
 # stopifnot(length(alt1b) == 15)
+
+alt2 <- c("North Lamar Transit Center", "Crestview", "Koenig", "45th", "38th",
+          "29th", "UT", "15th",
+          "Travis Heights", "Lakeshore", "Pleasant Valley")
 
 ## Alternative 2: On-street: North Lamar to Pleasant Valley
 alt2a <- c("North Lamar Transit Center", "Crestview", "Koenig", "45th", "38th",
@@ -135,8 +131,7 @@ alt5 <- c("UT", "15th", "Republic Square", "Auditorium Shores",
 # stopifnot(length(alt5) == 10)
 
 alts <- 
-  rbind(mutate(filter(lrt_sa, Name %in% alt1), alt = "1: Base"),
-        mutate(filter(lrt_sa, Name %in% alt1a), alt = "1a: 38th/Oltorf/Yellow Jacket 1"),
+  rbind(mutate(filter(lrt_sa, Name %in% alt1a), alt = "1a: 38th/Oltorf/Yellow Jacket 1"),
         mutate(filter(lrt_sa, Name %in% alt1b), alt = "1b: 38th/Oltorf/Yellow Jacket 2"),
         mutate(filter(lrt_sa, Name %in% alt2a), alt = "2a: N. Lamar/Pleasant Valley 1"),
         mutate(filter(lrt_sa, Name %in% alt2b), alt = "2b: N. Lamar/Pleasant Valley 2"),
@@ -239,8 +234,6 @@ p_jobs <-
 ggsave(filename = "stationPerformance_jobs.png", plot = p_jobs,
         width = 2700, height = 1800, units = "px")
 
-
-
 station_performance$Name <-
   factor(station_performance$Name, 
          levels = 
@@ -248,7 +241,6 @@ station_performance$Name <-
              filter(station_performance, variable2 == "total population")$Name, 
              filter(station_performance, variable2 == "total population")$total, 
              .desc = TRUE)))
-
 
 p_pop <- 
   ggplot(
@@ -268,8 +260,6 @@ p_pop <-
 ggsave(filename = "stationPerformance_pop.png", plot = p_pop,
         width = 2700, height = 1800, units = "px")
            
-
-
 ## Alternatives performance ----------------------------------------------------
 
 # Add ABIA's jobs back manually
@@ -290,7 +280,7 @@ ggplot(filter(alt_performance_final,
   ylab("count") + 
   guides(fill = guide_legend(title = NULL)) + 
   labs(title = "Population and jobs within 1/2 mile of proposed light-rail stations by scenario",
-       subtitle = "REVISED 3/27/2023",
+       subtitle = "REVISED 3/28/2023",
        caption = "Source: Alex Karner, UT-Austin Community & Regional Planning") +
   theme_bw() + 
   theme(plot.subtitle = element_text(color = "red"))
